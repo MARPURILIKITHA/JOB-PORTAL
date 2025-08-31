@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1 class="logo">JOB PORTAL</h1>
+    <nav aria-label="Main navigation" class="navbar">
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+      <div class="nav-links">
+        <a href="#" class="nav-link active" data-section="home">Home</a>
+        <a href="#" class="nav-link" data-section="about">About</a>
+        <a href="#" class="nav-link" data-section="contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="search-section" id="home-section">
+      <form onsubmit="searchJobs(); return false;">
+        <input 
+          type="text" 
+          id="skillsInput" 
+          placeholder="Give your skills separated by commas" 
+          autocomplete="off"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </section>
+
+    <section id="about-section" class="about-section hidden">
+      <div class="about-content fade-in">
+        <h2>About Our Job Portal</h2>
+        <p>
+          Welcome to our Job Portal, your one-stop destination for discovering exciting career opportunities across various domains and industries. Our platform is designed to help job seekers find roles that match their skills and aspirations, making the job search process simple and effective.
+        </p>
+        <p>
+          We provide a user-friendly interface where you can search for jobs by your skills, apply directly, and track your applications. Our portal connects you with top companies and offers detailed job descriptions, locations, and contact information for every listing.
+        </p>
+        <p>
+          Whether you're a fresher or an experienced professional, our portal is here to support your career journey. Explore, apply, and take the next step towards your dream job with us!
+        </p>
+      </div>
+    </section>
+
+    <section id="jobsContainer" class="jobs-container">
+      <!-- Matching jobs will appear here -->
+    </section>
+  </main>
+
+  <footer id="footer-section">
+    <div class="footer-content">
+      <h3>Contact Us</h3>
+      <p>
+        <strong>Phone:</strong> +91-9876543210, +91-9123456789<br>
+        <strong>Email:</strong> support@jobportal.com, info@jobportal.com
+      </p>
+      <div class="social-media">
+        <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
+        <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
+        <a href="https://linkedin.com" target="_blank" class="social-icon">LinkedIn</a>
+        <a href="https://instagram.com" target="_blank" class="social-icon">Instagram</a>
+      </div>
+      <p>&copy; 2025 Job Portal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // Responsive navbar toggle
+  document.querySelector('.nav-toggle').onclick = function() {
+    document.querySelector('.nav-links').classList.toggle('open');
+  };
+  // Active link highlight and section navigation
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.onclick = function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+      // Section navigation
+      const section = this.getAttribute('data-section');
+      document.getElementById('home-section').style.display = section === 'home' ? 'flex' : 'none';
+      document.getElementById('about-section').classList.toggle('hidden', section !== 'about');
+      document.getElementById('jobsContainer').style.display = section === 'home'  ? 'grid' : 'none';
+
+      if (section === 'home') {
+        document.getElementById('jobsContainer').innerHTML = "";
+      }
+      if (section === 'about') {
+        document.getElementById('about-section').classList.add('fade-in');
+      }
+      if (section === 'contact') {
+        document.getElementById('about-section').classList.add('hidden');
+        document.getElementById('home-section').style.display = 'none';
+        document.getElementById('jobsContainer').style.display = 'none';
+        document.getElementById('footer-section').scrollIntoView({behavior: "smooth"});
+      }
+    };
+  });
+
+
+
+  // let searchTimeout;
+  // document.getElementById('skillsInput').addEventListener('input', function() {
+  //   clearTimeout(searchTimeout);
+  //   searchTimeout = setTimeout(searchJobs, 400);
+  // });
+// });
+
+
+
+ 
+  </script>
+</body>
+</html>
